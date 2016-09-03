@@ -1,7 +1,7 @@
 import { List, Map } from 'immutable';
 import { expect } from 'chai';
 
-import { addShow, removeShow, setCurrentShows, toggleWatched } from '../src/core';
+import { addShow, removeShow, setCurrentShows, toggleWatched } from '../client/core';
 
 describe('application logic', () => {
 
