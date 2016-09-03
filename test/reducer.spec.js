@@ -5,6 +5,23 @@ import reducer from '../src/reducer';
 
 describe('reducer', () => {
 
+  it('has an initial state', () => {
+    const action = {
+      type: 'SET_CURRENT_SHOWS',
+      shows: [
+        {name: 'Friends'},
+        {name: 'Will & Grace'}
+      ]
+    };
+    const nextState = reducer(undefined, action);
+    expect(nextState).to.equal(fromJS({
+      currentShows: [
+        {name: 'Friends'},
+        {name: 'Will & Grace'}
+      ]
+    }));
+  });
+
   it('handles SET_CURRENT_SHOWS', () => {
     const initialState = Map();
     const action = {

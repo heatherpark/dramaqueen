@@ -1,6 +1,6 @@
-import { setCurrentShows, addShow, removeShow, toggleWatched } from './core';
+import { setCurrentShows, addShow, removeShow, toggleWatched, INITIAL_STATE } from './core';
 
-export default function reducer(state, action) {
+export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'SET_CURRENT_SHOWS':
       return setCurrentShows(state, action.shows);
@@ -11,4 +11,5 @@ export default function reducer(state, action) {
     case 'TOGGLE_WATCHED':
       return toggleWatched(state, action.show, action.episodeId);
   }
+  return state;
 }
