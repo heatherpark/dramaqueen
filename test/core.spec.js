@@ -10,8 +10,8 @@ describe('application logic', () => {
     it('adds the current shows to the state', () => {
       const state = Map();
       const shows = [
-        Map({name: 'Friends'}),
-        Map({name: 'Will & Grace'})
+        {name: 'Friends'},
+        {name: 'Will & Grace'}
       ];
       const nextState = setCurrentShows(state, shows);
 
@@ -34,7 +34,7 @@ describe('application logic', () => {
           Map({name: 'Will & Grace'})
         )
       });
-      const show = Map({name: 'Suits'});
+      const show = {name: 'Suits'};
       const nextState = addShow(state, show);
 
       expect(nextState).to.equal(Map({
@@ -58,7 +58,7 @@ describe('application logic', () => {
           Map({name: 'Suits'})
         )
       });
-      const show = Map({name: 'Suits'});
+      const show = {name: 'Suits'};
       const nextState = removeShow(state, show);
 
       expect(nextState).to.equal(Map({
@@ -96,7 +96,7 @@ describe('application logic', () => {
           )
         )
       });
-      const show = Map({name: 'Suits'});
+      const show = {name: 'Suits'};
       const nextState = toggleWatched(state, show);
 
       expect(nextState).to.equal(Map({
