@@ -72,7 +72,7 @@ describe('application logic', () => {
   });
 
   describe('toggleWatched', () => {
-
+    // TODO: modularize further
     it('toggles watched property on specified episode', () => {
       const state = Map({
         currentShows: List.of(

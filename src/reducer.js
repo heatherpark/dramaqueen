@@ -8,6 +8,7 @@ export default function reducer(state = INITIAL_STATE, action) {
       return addShow(state, action.show);
     case 'REMOVE_SHOW':
       return removeShow(state, action.show);
+    // TODO: modularize further
     case 'TOGGLE_WATCHED':
       return toggleWatched(state, action.show, action.episodeId);
   }

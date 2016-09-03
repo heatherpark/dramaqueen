@@ -19,6 +19,7 @@ export function removeShow(state, show) {
   return state.set('currentShows', currentShows);
 }
 
+// TODO: modularize further
 export function toggleWatched(state, show, episodeId) {
   var showToUpdate = state
     .get('currentShows')
