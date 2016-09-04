@@ -1,7 +1,7 @@
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import CurrentShows from './CurrentShows';
+import CurrentShowsContainer from './CurrentShows';
 import CurrentShow from './CurrentShow';
 
 export default React.createClass({
@@ -13,7 +13,7 @@ export default React.createClass({
 
   render: function() {
     return <div className="app-container">
-      <CurrentShows />
+      <CurrentShowsContainer />
     </div>
   }
 });
