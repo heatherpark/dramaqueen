@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node server/server.js",
-    "test": "mocha --compilers js:babel-core/register --require ./test/helper.js  --recursive",
-    "test:watch": "npm run test -- --watch"
+    "test:client": "mocha --compilers js:babel-core/register --require ./test/client/helper.js 'test/client/**/*.@(js|jsx)'",
+    "test:watch-client": "npm run test:client -- --watch",
+    "test:server": "mocha --compilers js:babel-core/register --require ./test/helper.js  --recursive",
+    "test:watch-server": "npm run test:server -- --watch"
   },
   "repository": {
     "type": "git",
@@ -22,12 +24,17 @@
   "devDependencies": {
     "babel-cli": "^6.14.0",
     "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
     "chai": "^3.5.0",
     "chai-immutable": "^1.6.0",
+    "jsdom": "^9.5.0",
     "mocha": "^3.0.2",
     "supertest": "^2.0.0",
-    "supertest-as-promised": "^4.0.0"
+    "supertest-as-promised": "^4.0.0",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.1"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -40,7 +47,8 @@
   },
   "babel": {
     "presets": [
-      "es2015"
+      "es2015",
+      "react"
     ]
   }
 }
