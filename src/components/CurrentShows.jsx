@@ -2,24 +2,26 @@ import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import CurrentShows from './CurrentShow';
+import CurrentShow from './CurrentShow';
 
 /** dumb component **/
-export CurrentShows = React.createClass({
+export const CurrentShows = React.createClass({
   mixins: [PureRenderMixin],
 
-  getCurrentShows: function() {
+  getCurrentShows() {
     return this.props.currentShows || [];
   },
 
-  render: function() {
-    return <div className="current-shows">
-      {this.getCurrentShows().map(show =>
-        <CurrentShow
-          key={show.name}
-          show={show} />
-      )}
-    </div>
+  render() {
+    return (
+      <div className="current-shows">
+        {this.getCurrentShows().map(show =>
+          <CurrentShow
+            key={show.get('name')}
+            show={show} />
+        )}
+      </div>
+    )
   }
 });
 

@@ -4,12 +4,15 @@ import React from 'react';
 export default React.createClass({
   mixins: [PureRenderMixin],
 
-  render: function() {
-    return <div className="current-show">
-      <h1>{this.props.show.name}</h1>
-      <p>{this.props.show.overview}</p>
-      <button>Episodes</button>
-      <button className="remove-option">Remove Show</button>
-    </div>
+  render() {
+    // { show } = this.props;
+    return (
+      <div className="current-show">
+        <h1>{this.props.show.get('name')}</h1>
+        <p>{this.props.show.get('overview')}</p>
+        <button>Episodes</button>
+        <button className="remove-option">Remove Show</button>
+      </div>
+    )
   }
 });
