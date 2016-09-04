@@ -1,5 +1,8 @@
+import { List, Map } from 'immutable';
+
 const currentShows = [
   {
+    id: 1,
     name: 'Pretty Little Liars',
     overview: 'Overview of Pretty Little Liars',
     episodes: [
@@ -11,6 +14,7 @@ const currentShows = [
     ]
   },
   {
+    id: 2,
     name: 'Friends',
     overview: 'Overview of Friends',
     episodes: [

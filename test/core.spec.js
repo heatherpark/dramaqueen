@@ -53,13 +53,13 @@ describe('application logic', () => {
     it('removes show from list of current shows', () => {
       const state = Map({
         currentShows: List.of(
-          Map({name: 'Friends'}),
-          Map({name: 'Will & Grace'}),
-          Map({name: 'Suits'})
+          Map({id: 1, name: 'Friends'}),
+          Map({id: 2, name: 'Will & Grace'}),
+          Map({id: 3, name: 'Suits'})
         )
       });
-      const show = {name: 'Suits'};
-      const nextState = removeShow(state, show);
+      const showId = 3;
+      const nextState = removeShow(state, showId);
 
       expect(nextState).to.equal(Map({
         currentShows: List.of(

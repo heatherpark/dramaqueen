@@ -6,14 +6,16 @@ import ReactDOM from 'react-dom';
 
 import App from './components/App';
 
-const store = createStore(reducer);
+export const store = createStore(reducer);
 store.dispatch({
   type: 'SET_CURRENT_SHOWS',
   shows: [{
+    id: 1,
     name: 'Friends',
     overview: 'Overview of Friends'
   },
   {
+    id: 2,
     name: 'Will & Grace',
     overview: 'Overview of Will & Grace'
   }]

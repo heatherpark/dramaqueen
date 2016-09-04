@@ -8,31 +8,21 @@ import {
 } from 'react-addons-test-utils';
 import {expect} from 'chai';
 
-// import CurrentShows from '../../src/components/CurrentShows';
+import { CurrentShows } from '../../src/components/CurrentShows';
 import CurrentShow from '../../src/components/CurrentShow';
 import currentShows from './mockData/currentShows';
+import reducer from '../../src/reducer.js';
 
 describe('CurrentShow', () => {
 
   it('renders one of the current shows', () => {
-    const show = currentShows[0];
+    const state = reducer(undefined, { type: 'SET_CURRENT_SHOWS', shows: currentShows });
     const component = renderIntoDocument(
-      <CurrentShow show={show} />
+      <CurrentShows currentShows={state.get('currentShows')} />
     );
     const showNames = scryRenderedDOMComponentsWithTag(component, 'h1');
 
     expect(showNames[0].textContent).to.equal('Pretty Little Liars');
-  });
-  // TODO: update
-  it('invokes callback when "remove show" is clicked', () => {
-    const show = currentShows[0];
-    const component = renderIntoDocument(
-      <CurrentShow show={show} />
-    );
-    const removeShow = scryRenderedDOMComponentsWithClass(component, 'remove-option');
-    Simulate.click(removeShow[0]);
-
-    expect(currentShows.length).to.equal(2);
   });
 
 });

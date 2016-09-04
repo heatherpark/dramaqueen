@@ -11,10 +11,10 @@ export function addShow(state, show) {
   return state.update('currentShows', currentShows => currentShows.push(Map(show)));
 }
 
-export function removeShow(state, show) {
+export function removeShow(state, showId) {
   var currentShows = state
     .get('currentShows')
-    .filterNot(currentShow => currentShow.get('name') === show.name);
+    .filterNot(currentShow => currentShow.get('id') === showId);
 
   return state.set('currentShows', currentShows);
 }

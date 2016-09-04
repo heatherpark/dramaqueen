@@ -9,16 +9,15 @@ export const CurrentShows = React.createClass({
   mixins: [PureRenderMixin],
 
   getCurrentShows() {
-    return this.props.currentShows || [];
+    const { currentShows } = this.props;
+    return currentShows || [];
   },
 
   render() {
     return (
       <div className="current-shows">
         {this.getCurrentShows().map(show =>
-          <CurrentShow
-            key={show.get('name')}
-            show={show} />
+          <CurrentShow show={show} />
         )}
       </div>
     )
