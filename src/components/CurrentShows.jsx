@@ -1,9 +1,10 @@
+import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import CurrentShow from './CurrentShow';
+import CurrentShows from './CurrentShow';
 
-export default React.createClass({
+const CurrentShows = React.createClass({
   mixins: [PureRenderMixin],
 
   getCurrentShows: function() {
@@ -20,3 +21,13 @@ export default React.createClass({
     </div>
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    currentShows: state.get('currentShows')
+  };
+}
+
+connect(mapStateToProps)(CurrentShows);
+
+export default CurrentShows;
