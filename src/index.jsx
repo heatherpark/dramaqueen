@@ -1,9 +1,12 @@
-import makeStore from './store';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducer';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CurrentShows from './components/CurrentShows';
 
-export const store = makeStore();
+import App from './components/App';
+
+export const store = createStore(reducer);
 
 const currentShows = [
   {
@@ -31,6 +34,8 @@ const currentShows = [
 ];
 
 ReactDOM.render(
-  <CurrentShows currentShows={currentShows} />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('app')
 );
