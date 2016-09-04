@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node server/server.js",
-    "test:client": "mocha --compilers js:babel-core/register --require ./test/client/helper.js 'test/client/**/*.@(js|jsx)'",
-    "test:watch-client": "npm run test:client -- --watch",
+    "test:src": "mocha --compilers js:babel-core/register --require ./test/src/helper.js 'test/src/**/*.@(js|jsx)'",
+    "test:watch-src": "npm run test:src -- --watch",
     "test:server": "mocha --compilers js:babel-core/register --require ./test/helper.js  --recursive",
     "test:watch-server": "npm run test:server -- --watch"
   },

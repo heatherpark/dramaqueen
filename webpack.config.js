@@ -3,7 +3,7 @@ module.exports = {
     // first two entry points used for hot loader
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './client/index.js'
+    './src/index.jsx'
   ],
   // process .js and .jsx files in babel and use with react hot loader
   module: {
