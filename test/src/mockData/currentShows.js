@@ -1,10 +1,3 @@
-import makeStore from './store';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import CurrentShows from './components/CurrentShows';
-
-export const store = makeStore();
-
 const currentShows = [
   {
     name: 'Pretty Little Liars',
@@ -30,7 +23,4 @@ const currentShows = [
   }
 ];
 
-ReactDOM.render(
-  <CurrentShows currentShows={currentShows} />,
-  document.getElementById('app')
-);
+export default currentShows;
