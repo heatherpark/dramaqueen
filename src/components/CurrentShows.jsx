@@ -1,7 +1,11 @@
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
+
 import CurrentShow from './CurrentShow';
 
 export default React.createClass({
+  mixins: [PureRenderMixin],
+
   getCurrentShows: function() {
     return this.props.currentShows || [];
   },
