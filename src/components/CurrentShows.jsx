@@ -4,7 +4,8 @@ import React from 'react';
 
 import CurrentShows from './CurrentShow';
 
-const CurrentShows = React.createClass({
+/** dumb component **/
+export CurrentShows = React.createClass({
   mixins: [PureRenderMixin],
 
   getCurrentShows: function() {
@@ -28,6 +29,7 @@ function mapStateToProps(state) {
   };
 }
 
-connect(mapStateToProps)(CurrentShows);
-
-export default CurrentShows;
+/** smart component **/
+// wraps dumb component with logic to keep it in sync with the store
+// maps necessary props from state to CurrentShows component
+export const CurrentShowsContainer = connect(mapStateToProps)(CurrentShows);
