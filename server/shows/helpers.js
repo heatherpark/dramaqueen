@@ -9,58 +9,17 @@ var updateShow = Q.nbind(Show.findOneAndUpdate, Show);
 var tvdbUri = 'https://api.thetvdb.com';
 var token;
 
-function getEpisodes(showId, token) {
-  var options = {
-    uri: tvdbUri + '/series/' + showId + '/episodes',
-    headers: {
-      'Authorization': 'Bearer ' + token
-    },
-    qs: {
-      page: '1'
-    },
-    json: true
-  };
-
-  return rp(options)
-    .then(function(res) {
-      var episodes = res.data;
-      return episodes;
-    });
-}
-
 function addShowToDb(show) {
   var newShow = new Show({
     _id: show.id,
     name: show.seriesName,
-    currentShow: true,
-    airsDayOfWeek: show.airsDayOfWeek,
-    airsTime: show.airsTime,
     network: show.network,
-    episodes: []
+    firstAired: show.firstAired,
+    overview: show.overview
   });
 
-  return module.exports.getEpisodes(show.id, token)
-    .then(function(episodes) {
-      episodes.forEach(function(episode) {
-        console.log(episode.season);
-        if (episode.airedSeason > 0) {
-          newShow.episodes.push({
-            season: episode.airedSeason,
-            episodeNumber: episode.airedEpisodeNumber,
-            episodeName: episode.episodeName,
-            overview: episode.overview,
-            watched: false
-          });
-        }
-      });
-      return newShow;
-    })
-    .then(function(show) {
-      return saveShow(show);
-    })
-    .then(function(show) {
-      return show;
-    });
+  // TODO: process banner info
+  // TODO: save show to DB and return show instance
 }
 
 function checkForShowInDb(showId) {
