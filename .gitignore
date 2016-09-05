@@ -5,5 +5,5 @@ npm-debug.log
 # build files
 dist/
 
-# production files
+# API keys
 server/config/client.js
