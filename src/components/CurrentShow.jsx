@@ -1,19 +1,16 @@
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
+
+import { removeShow } from '../actionCreators';
 import { store } from '../index';
 
 export default React.createClass({
   mixins: [PureRenderMixin],
 
-  removeShow(showId) {
-    store.dispatch({
-      type: 'REMOVE_SHOW',
-      id: showId
-    });
-  },
-
   render() {
     const { show } = this.props;
+    const id = show.get('id');
+
     return (
       <div className="current-show">
         <h1>{this.props.show.get('name')}</h1>
@@ -21,7 +18,7 @@ export default React.createClass({
         <button>Episodes</button>
         <button
           className="remove-option"
-          onClick={() => this.removeShow(show.get('id'))}>Remove Show</button>
+          onClick={() => store.dispatch(removeShow(id))}>Remove Show</button>
       </div>
     )
   }
