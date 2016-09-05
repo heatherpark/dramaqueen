@@ -1,8 +1,8 @@
-var Show = require('./show-model.js');
+var Show = require('./showModel.js');
 var helpers = require('./helpers.js');
 
 function addNewShow(req, res, next) {
-  var showName = req.body.showName;
+  var searchQuery = req.body.searchQuery;
   var showId;
   var token;
 
@@ -12,7 +12,7 @@ function addNewShow(req, res, next) {
       return token;
     })
     .then(function() {
-      return helpers.searchForShow(showName, token);
+      return helpers.searchForShow(searchQuery, token);
     })
     .then(function(id) {
       showId = id;
@@ -23,7 +23,7 @@ function addNewShow(req, res, next) {
     })
     .then(function(found) {
       if (found) {
-        res.send({ message: showName + ' has already been saved'});
+        res.send({ message: found + ' has already been saved'});
         throw new Error('this show already exists');
       }
       return showId;

@@ -1,6 +1,6 @@
 var rp = require('request-promise');
 var key = require('../config/keys.js').TVDB.API_KEY;
-var Show = require('./show-model.js');
+var Show = require('./showModel.js');
 var Q = require('q');
 
 var findShow = Q.nbind(Show.findOne, Show);
@@ -33,15 +33,7 @@ function addShowToDb(show) {
     name: show.seriesName,
     airsDayOfWeek: show.airsDayOfWeek,
     airsTime: show.airsTime,
-    firstAired: show.firstAired,
-    genre: show.genre,
     network: show.network,
-    overview: show.overview,
-    rating: show.siteRating,
-    ratingCount: show.siteRatingCount,
-    runtime: show.runtime,
-    status: show.status,
-    poster: show.banner
   });
 
   module.exports.getEpisodes(show.id, token)
@@ -54,15 +46,10 @@ function addShowToDb(show) {
     });
 }
 
-function base64(poster) {
-  // use base64 module to convert image
-  // assign to show model
-}
-
 function checkForShowInDb(showId) {
   return findShow({ _id: showId })
     .then(function(show) {
-      if (show) return show._id;
+      if (show) return show.name;
       return null;
     })
     .catch(function(err) {
@@ -132,7 +119,6 @@ function searchForShow(showName, token) {
 module.exports = {
   getEpisodes: getEpisodes,
   addShowToDb: addShowToDb,
-  base64: base64,
   checkForShowInDb: checkForShowInDb,
   getToken: getToken,
   getShowEpisodes: getShowEpisodes,

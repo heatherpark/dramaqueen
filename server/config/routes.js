@@ -1,5 +1,4 @@
-var showController = require('../shows/show-request-handler.js');
-var userController = require('../users/user-request-handler.js');
+var showController = require('../shows/showRequestHandler.js');
 var helpers = require('./helpers.js');
 
 module.exports = function (app, express) {
