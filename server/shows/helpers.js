@@ -1,5 +1,5 @@
 var rp = require('request-promise');
-var key = require('../config/keys.js').TVDB.API_KEY;
+var tvdbKey = require('../config/keys.js').TVDB.API_KEY;
 var Show = require('./showModel.js');
 var Q = require('q');
 
@@ -8,6 +8,14 @@ var saveShow = Q.nbind(Show.create, Show);
 var updateShow = Q.nbind(Show.findOneAndUpdate, Show);
 var tvdbUri = 'https://api.thetvdb.com';
 var token;
+
+var cloudinary = require('cloudinary');
+var cloudinaryClient = require('../config/keys.js');
+cloudinary.config({
+  cloud_name: cloudinaryClient.CLOUD_NAME,
+  api_key: cloudinaryClient.API_KEY,
+  api_secret: cloudinaryClient.API_SECRET
+});
 
 function addShowToDb(show) {
   var newShow = new Show({
@@ -40,7 +48,7 @@ function getToken() {
   var options = {
     method: 'POST',
     uri: tvdbUri + '/login',
-    body: { apikey: key },
+    body: { apikey: tvdbKey },
     json: true
   };
 
@@ -91,11 +99,9 @@ function searchForShow(showName, token) {
 }
 
 module.exports = {
-  getEpisodes: getEpisodes,
   addShowToDb: addShowToDb,
   checkForShowInDb: checkForShowInDb,
   getToken: getToken,
   getShowInfo: getShowInfo,
-  searchForShow: searchForShow,
-  toggleCurrentShow: toggleCurrentShow
+  searchForShow: searchForShow
 };
