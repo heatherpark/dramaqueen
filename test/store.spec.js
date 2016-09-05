@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { List, Map, fromJS } from 'immutable';
 import { expect } from 'chai';
 
 import configureStore from '../src/store/configureStore';
@@ -7,7 +7,9 @@ describe('store', () => {
 
   it('is a Redux store configured with the correct reducer', () => {
     const store = configureStore();
-    expect(store.getState()).to.equal(Map());
+    expect(store.getState()).to.equal(Map({
+      currentShows: List()
+    }));
 
     store.dispatch({
       type: 'SET_CURRENT_SHOWS',

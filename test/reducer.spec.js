@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { List, Map, fromJS } from 'immutable';
 import { expect } from 'chai';
 
 import reducer from '../src/store/reducer';
@@ -23,7 +23,9 @@ describe('reducer', () => {
   });
 
   it('handles SET_CURRENT_SHOWS', () => {
-    const initialState = Map();
+    const initialState = Map({
+      currentShows: List()
+    });
     const action = {
       type: 'SET_CURRENT_SHOWS',
       shows: [

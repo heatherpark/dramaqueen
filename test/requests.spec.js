@@ -24,16 +24,6 @@ describe('Show-related server requests that require the database', function() {
     done();
   });
 
-  it('Sending GET request should retrieve all current shows', function(done) {
-    request(app)
-      .get('/api/shows')
-      .expect(function(res) {
-        expect(res.body).to.eql([shows[0]]);
-      })
-      .expect(200)
-      .end(done);
-  });
-
   it('Sending POST request with show ID as param should toggle currentShow property of show in DB', function(done) {
     request(app)
       .post('/api/shows/' + shows[1]._id)

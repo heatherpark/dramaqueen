@@ -1,6 +1,8 @@
 import { List, Map } from 'immutable';
 
-export const INITIAL_STATE = Map();
+export const INITIAL_STATE = Map({
+  currentShows: List()
+});
 
 export function setCurrentShows(state, shows) {
   shows = shows.map(show => Map(show));

@@ -54,7 +54,10 @@ function addShowToDb(show) {
 function checkForShowInDb(showId) {
   return findShow({ _id: showId })
     .then(function(show) {
-      if (show) return show;
+      if (show) {
+        show.currentShow = true;
+        return show;
+      };
       return null;
     })
     .catch(function(err) {
