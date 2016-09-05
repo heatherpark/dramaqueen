@@ -13,8 +13,8 @@ export default React.createClass({
 
     return (
       <div className="current-show">
-        <h1>{this.props.show.get('name')}</h1>
-        <p>{this.props.show.get('overview')}</p>
+        <h1>{show.get('name')}</h1>
+        <p>{show.get('overview')}</p>
         <button>Episodes</button>
         <button
           className="remove-option"
