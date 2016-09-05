@@ -36,13 +36,16 @@ function addShowToDb(show) {
     network: show.network,
   });
 
-  module.exports.getEpisodes(show.id, token)
+  return module.exports.getEpisodes(show.id, token)
     .then(function(episodes) {
       newShow.episodes = episodes;
       return newShow;
     })
     .then(function(show) {
       return saveShow(show);
+    })
+    .then(function(show) {
+      return show;
     });
 }
 

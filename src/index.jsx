@@ -1,12 +1,11 @@
-import { createStore } from 'redux';
+import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
-import reducer from './reducer';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './components/App';
 
-export const store = createStore(reducer);
+export const store = configureStore();
 store.dispatch({
   type: 'SET_CURRENT_SHOWS',
   shows: [{

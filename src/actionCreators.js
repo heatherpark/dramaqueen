@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const removeShow = (id) => {
+export function removeShow(id) {
   // TODO: remove show from database
   return {
     type: 'REMOVE_SHOW',
@@ -8,11 +8,27 @@ export const removeShow = (id) => {
   }
 }
 
-export const addShow = (searchQuery) => {
-  axios.post('/api/shows', { searchQuery })
-    .then(response => console.log(response))
-    .catch(err => console.log('error: ', err));
-  // make POST request to server with searchQuery
-  // if response is not null, dispatch action
-  // if null, create message alert telling user searched show was not found
+export function addShow(show) {
+  return {
+    type: 'ADD_SHOW',
+    show
+  }
+}
+
+export function fetchShow(searchQuery) {
+  return function(dispatch, getState) {
+    let state = getState();
+
+    return axios.post('/api/shows', { searchQuery })
+      .then(res => {
+        if (res.data.saved) {
+          // TODO: add alert for message
+          console.log(res.data.message);
+        } else {
+          let show = res.data;
+          dispatch(addShow(show));
+        }
+      })
+      .catch(err => console.log('error: ', err));
+  }
 }

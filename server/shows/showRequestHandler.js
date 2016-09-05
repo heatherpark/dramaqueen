@@ -23,7 +23,10 @@ function addNewShow(req, res, next) {
     })
     .then(function(found) {
       if (found) {
-        res.send({ message: found + ' has already been saved'});
+        res.send({
+          saved: true,
+          message: found + ' has already been saved'
+        });
         throw new Error('this show already exists');
       }
       return showId;
@@ -33,6 +36,9 @@ function addNewShow(req, res, next) {
     })
     .then(function(showInfo) {
       return helpers.addShowToDb(showInfo);
+    })
+    .then(function(show) {
+      res.status(200).send(show);
     })
     .catch(function(err) {
       console.log(err);

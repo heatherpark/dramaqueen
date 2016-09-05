@@ -1,7 +1,8 @@
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import { addShow } from '../actionCreators';
+import { fetchShow } from '../actionCreators';
+import { store } from '../index';
 
 export default React.createClass({
   mixins: [PureRenderMixin],
@@ -11,7 +12,7 @@ export default React.createClass({
       <div className="add-show">
         <button
           className="add-show"
-          onClick={() => addShow('Game of Thrones')}>Search for Show</button>
+          onClick={() => store.dispatch(fetchShow('Game of Thrones'))}>Search for Show</button>
       </div>
     )
   }
