@@ -1,5 +1,5 @@
 var rp = require('request-promise');
-var tvdbKey = require('../config/keys.js').TVDB.API_KEY;
+var tvdbKey = require('../config/client.js').TVDB.API_KEY;
 var Show = require('./showModel.js');
 var Q = require('q');
 
@@ -10,7 +10,7 @@ var tvdbUri = 'https://api.thetvdb.com';
 var token;
 
 var cloudinary = require('cloudinary');
-var cloudinaryClient = require('../config/keys.js');
+var cloudinaryClient = require('../config/client.js');
 cloudinary.config({
   cloud_name: cloudinaryClient.CLOUD_NAME,
   api_key: cloudinaryClient.API_KEY,
@@ -18,6 +18,7 @@ cloudinary.config({
 });
 
 function addShowToDb(show) {
+  console.log('show: ', show);
   var newShow = new Show({
     _id: show.id,
     name: show.seriesName,
@@ -26,6 +27,7 @@ function addShowToDb(show) {
     overview: show.overview
   });
 
+  return saveShow(newShow);
   // TODO: process banner info
   // TODO: save show to DB and return show instance
 }
