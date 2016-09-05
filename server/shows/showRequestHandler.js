@@ -22,7 +22,7 @@ function addNewShow(req, res, next) {
     })
     .then(function(found) {
       if (found) {
-        res.status(200).send(found)
+        res.status(200).send(found);
         throw new Error('this show is already in the database');
       }
       return showId;
@@ -49,15 +49,8 @@ function getShowById(req, res, next) {
 }
 
 function getShows(req, res, next) {
-  var query = Show.find();
-  console.log(req.user);
-  if (req.query.genre) {
-    query.where({ genre: req.query.genre });
-  } else if (req.query.alphabet) {
-    query.where({ name: new RegExp('^' + '[' + req.query.alphabet + ']', 'i') });
-  } else {
-    query.limit(12);
-  }
+  var query = Show.find()
+    .where({ currentShow: true });
 
   query.exec(function(err, shows) {
     if (err) return next(err);
@@ -66,10 +59,12 @@ function getShows(req, res, next) {
 }
 
 function removeShow(req, res, next) {
-  if (err) return next(err);
-  helpers.toggleCurrentShow(req.params.id)
+  return helpers.toggleCurrentShow(req.params.id)
     .then(function(show) {
-      console.log('show: ', show);
+      res.status(200).send(show);
+    })
+    .catch(function(err) {
+      console.log('error: ', err);
     });
 }
 

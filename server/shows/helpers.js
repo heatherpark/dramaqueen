@@ -117,7 +117,14 @@ function searchForShow(showName, token) {
 }
 
 function toggleCurrentShow(showId) {
-  return updateShow({ _id: showId }, { currentShow: !currentShow });
+  return findShow({ _id: showId })
+    .then(function(show) {
+      show.currentShow = !show.currentShow;
+      return show;
+    })
+    .catch(function(err) {
+      console.log('error: ', err);
+    });
 }
 
 module.exports = {
