@@ -12,7 +12,7 @@ export default React.createClass({
       <div className="add-show">
         <button
           className="add-show"
-          onClick={() => store.dispatch(fetchShow('Game of Thrones'))}>Search for Show</button>
+          onClick={() => store.dispatch(fetchShow('Descendants of the Sun'))}>Search for Show</button>
       </div>
     )
   }

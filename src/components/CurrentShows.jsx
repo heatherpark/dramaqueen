@@ -9,7 +9,7 @@ export const CurrentShows = React.createClass({
   mixins: [PureRenderMixin],
 
   getCurrentShows() {
-    console.log(this.props.currentShows)
+    console.log('in current shows', this.props.currentShows)
     return this.props.currentShows || [];
   },
 

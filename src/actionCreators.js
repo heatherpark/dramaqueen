@@ -1,10 +1,23 @@
 import axios from 'axios';
 
 export function removeShow(id) {
-  // TODO: remove show from database
   return {
     type: 'REMOVE_SHOW',
     id
+  }
+}
+
+export function toggleWatched(id) {
+  console.log('axios: ', id);
+  return function(dispatch, getState) {
+    let state = getState();
+
+    return axios.post('/api/shows/' + id)
+      .then(res => {
+        let id = res.data._id;
+        dispatch(removeShow(id));
+      })
+      .catch(err => console.log('error: ', err));
   }
 }
 

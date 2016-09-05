@@ -42,13 +42,16 @@ function addShowToDb(show) {
   return module.exports.getEpisodes(show.id, token)
     .then(function(episodes) {
       episodes.forEach(function(episode) {
-        newShow.episodes.push({
-          season: episode.airedSeason,
-          episodeNumber: episode.airedEpisodeNumber,
-          episodeName: episode.episodeName,
-          overview: episode.overview,
-          watched: false
-        })
+        console.log(episode.season);
+        if (episode.airedSeason > 0) {
+          newShow.episodes.push({
+            season: episode.airedSeason,
+            episodeNumber: episode.airedEpisodeNumber,
+            episodeName: episode.episodeName,
+            overview: episode.overview,
+            watched: false
+          });
+        }
       });
       return newShow;
     })
