@@ -16,8 +16,7 @@ export function addShow(state, show) {
 export function removeShow(state, showId) {
   var currentShows = state
     .get('currentShows')
-    .filterNot(currentShow => currentShow.get('id') === showId);
-
+    .filterNot(currentShow => currentShow.get('_id') === showId);
   return state.set('currentShows', currentShows);
 }
 

@@ -68,9 +68,9 @@ describe('reducer', () => {
   it('handles REMOVE_SHOW', () => {
     const initialState = fromJS({
       currentShows: [
-        {id: 1, name: 'Friends'},
-        {id: 2, name: 'Will & Grace'},
-        {id: 3, name: 'Suits'}
+        {_id: 1, name: 'Friends'},
+        {_id: 2, name: 'Will & Grace'},
+        {_id: 3, name: 'Suits'}
       ]
     });
     const action = {
@@ -81,8 +81,8 @@ describe('reducer', () => {
 
     expect(nextState).to.equal(fromJS({
       currentShows: [
-        {id: 1, name: 'Friends'},
-        {id: 2, name: 'Will & Grace'}
+        {_id: 1, name: 'Friends'},
+        {_id: 2, name: 'Will & Grace'}
       ]
     }));
   });
