@@ -4,16 +4,16 @@
  var app = require('../server/server.js').app;
 
  var db = require('../server/server.js').db;
- var Show = require('../server/shows/show-model.js');
+ var Show = require('../server/shows/showModel.js');
  var helpers = require('../server/shows/helpers.js');
  var key = require('../server/config/keys.js').TVDB.API_KEY;
 
  // TODO: refactor using promises
  describe('Fetching shows: ', function() {
    var shows = [
-     {_id: 999998, name: 'Some Show', genre: 'someGenre'},
-     {_id: 999999, name: 'Some Other Show', genre: 'otherGenre'},
-     {_id: 1000000, name: 'Random Show', genre: 'someGenre'}
+     {_id: 999998, name: 'Some Show'},
+     {_id: 999999, name: 'Some Other Show'},
+     {_id: 1000000, name: 'Random Show'}
    ];
 
    before(function(done) {
@@ -26,24 +26,8 @@
      done();
    });
 
-   it('Returns shows based on genre queried', function(done) {
-     var expected = [
-       {__v: 0, _id: 999998, episodes: [], name: 'Some Show', subscribers: [], genre: ['someGenre']},
-       {__v: 0, _id: 1000000, episodes: [], name: 'Random Show', subscribers: [], genre: ['someGenre']}
-     ];
-
-     request(app)
-       .get('/api/shows')
-       .query({ 'genre': 'someGenre' })
-       .expect(function(res) {
-         expect(res.body).to.eql(expected);
-       })
-       .expect(200)
-       .end(done);
-   });
-
    it('Returns show based on ID', function(done) {
-     var expected = {__v: 0, _id: 1000000, episodes: [], name: 'Random Show', subscribers: [], genre: ['someGenre']};
+     var expected = {__v: 0, _id: 1000000, episodes: [], name: 'Random Show'};
 
      request(app)
        .get('/api/shows/1000000')
@@ -53,6 +37,33 @@
        .expect(200)
        .end(done);
    });
+ });
+
+ describe('Removing show from current shows list: ', function() {
+   var show = {_id: 999998, name: 'Some Show', currentShow: false};
+
+   before(function(done) {
+     Show.create(show);
+     done();
+   });
+
+   after(function(done) {
+     Show.remove(show).exec();
+     done();
+   });
+
+   it('Toggle currentShow property of show object', function(done) {
+     var expected = {__v: 0, _id: 999998, name: 'Some Show', currentShow: true};
+
+     request(app)
+       .get('/api/shows' + '/' + expected._id)
+       .expect(function(res) {
+         expect(res.body).to.eql(expected);
+       })
+       .expect(200)
+       .end(done);
+   });
+
  });
 
  describe('Adding new show: ', function() {
@@ -91,7 +102,7 @@
    });
 
    it('Be able to check if a show is already in the DB', function(done) {
-     var show = {_id: 999998, name: 'Some Show', genre: 'someGenre'};
+     var show = {_id: 999998, name: 'Some Show'};
      // TODO: use promise library for mongoose query
      Show.create(show)
        .then(function(show) {
@@ -99,6 +110,7 @@
        })
        .then(function(result) {
          expect(result).to.equal(show._id);
+         Show.remove(show).exec();
          done();
        })
        .catch(function(err) {

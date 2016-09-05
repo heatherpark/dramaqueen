@@ -5,6 +5,7 @@ var Q = require('q');
 
 var findShow = Q.nbind(Show.findOne, Show);
 var saveShow = Q.nbind(Show.create, Show);
+var updateShow = Q.nbind(Show.findOneAndUpdate, Show);
 var tvdbUri = 'https://api.thetvdb.com';
 var token;
 
@@ -31,6 +32,7 @@ function addShowToDb(show) {
   var newShow = new Show({
     _id: show.id,
     name: show.seriesName,
+    currentShow: true,
     airsDayOfWeek: show.airsDayOfWeek,
     airsTime: show.airsTime,
     network: show.network,
@@ -114,12 +116,16 @@ function searchForShow(showName, token) {
     });
 }
 
+function toggleCurrentShow(showId) {
+  return updateShow({ _id: showId }, { currentShow: !currentShow });
+}
+
 module.exports = {
   getEpisodes: getEpisodes,
   addShowToDb: addShowToDb,
   checkForShowInDb: checkForShowInDb,
   getToken: getToken,
-  getShowEpisodes: getShowEpisodes,
   getShowInfo: getShowInfo,
-  searchForShow: searchForShow
+  searchForShow: searchForShow,
+  toggleCurrentShow: toggleCurrentShow
 };

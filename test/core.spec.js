@@ -1,7 +1,7 @@
 import { List, Map } from 'immutable';
 import { expect } from 'chai';
 
-import { addShow, removeShow, setCurrentShows, toggleWatched } from '../src/core';
+import { addShow, removeShow, setCurrentShows, toggleWatched } from '../src/store/core';
 
 describe('application logic', () => {
 
@@ -63,8 +63,8 @@ describe('application logic', () => {
 
       expect(nextState).to.equal(Map({
         currentShows: List.of(
-          Map({name: 'Friends'}),
-          Map({name: 'Will & Grace'})
+          Map({id: 1, name: 'Friends'}),
+          Map({id: 2, name: 'Will & Grace'})
         )
       }));
     });

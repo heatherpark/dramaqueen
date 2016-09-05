@@ -65,8 +65,17 @@ function getShows(req, res, next) {
   });
 }
 
+function removeShow(req, res, next) {
+  if (err) return next(err);
+  helpers.toggleCurrentShow(req.params.id)
+    .then(function(show) {
+      console.log('show: ', show);
+    });
+}
+
 module.exports = {
   addNewShow: addNewShow,
   getShows: getShows,
-  getShowById: getShowById
+  getShowById: getShowById,
+  removeShow: removeShow
 };

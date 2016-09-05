@@ -1,7 +1,7 @@
 import { Map, fromJS } from 'immutable';
 import { expect } from 'chai';
 
-import reducer from '../src/reducer';
+import reducer from '../src/store/reducer';
 
 describe('reducer', () => {
 
@@ -66,21 +66,21 @@ describe('reducer', () => {
   it('handles REMOVE_SHOW', () => {
     const initialState = fromJS({
       currentShows: [
-        {name: 'Friends'},
-        {name: 'Will & Grace'},
-        {name: 'Suits'}
+        {id: 1, name: 'Friends'},
+        {id: 2, name: 'Will & Grace'},
+        {id: 3, name: 'Suits'}
       ]
     });
     const action = {
       type: 'REMOVE_SHOW',
-      show: {name: 'Suits'}
+      id: 3
     };
     const nextState = reducer(initialState, action);
 
     expect(nextState).to.equal(fromJS({
       currentShows: [
-        {name: 'Friends'},
-        {name: 'Will & Grace'}
+        {id: 1, name: 'Friends'},
+        {id: 2, name: 'Will & Grace'}
       ]
     }));
   });

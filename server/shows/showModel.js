@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var showSchema = new mongoose.Schema({
   _id: Number,
   name: String,
+  currentShow: Boolean,
   airsDayOfWeek: String,
   airsTime: String,
   network: String,
