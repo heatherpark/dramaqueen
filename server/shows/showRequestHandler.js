@@ -18,16 +18,12 @@ function addNewShow(req, res, next) {
       showId = id;
     })
     .then(function() {
-      // create response for shows that don't exist in TVDB
       return helpers.checkForShowInDb(showId);
     })
     .then(function(found) {
       if (found) {
-        res.send({
-          saved: true,
-          message: found + ' has already been saved'
-        });
-        throw new Error('this show already exists');
+        res.status(200).send(found)
+        throw new Error('this show is already in the database');
       }
       return showId;
     })

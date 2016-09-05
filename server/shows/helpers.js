@@ -52,7 +52,7 @@ function addShowToDb(show) {
 function checkForShowInDb(showId) {
   return findShow({ _id: showId })
     .then(function(show) {
-      if (show) return show.name;
+      if (show) return show;
       return null;
     })
     .catch(function(err) {
@@ -75,11 +75,6 @@ function getToken() {
     .catch(function(err) {
       console.log('error: ', err);
     });
-}
-
-function getShowEpisodes(showId) {
-  // send GET request to tvdb /series/:id/episodes
-  // limit results to 10 pages
 }
 
 function getShowInfo(showId, token) {
