@@ -12,7 +12,8 @@ var showSchema = new mongoose.Schema({
     episodeNumber: Number,
     episodeName: String,
     firstAired: Date,
-    overview: String
+    overview: String,
+    watched: Boolean
   }]
 });
 

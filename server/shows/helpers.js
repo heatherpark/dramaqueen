@@ -36,11 +36,20 @@ function addShowToDb(show) {
     airsDayOfWeek: show.airsDayOfWeek,
     airsTime: show.airsTime,
     network: show.network,
+    episodes: []
   });
 
   return module.exports.getEpisodes(show.id, token)
     .then(function(episodes) {
-      newShow.episodes = episodes;
+      episodes.forEach(function(episode) {
+        newShow.episodes.push({
+          season: episode.airedSeason,
+          episodeNumber: episode.airedEpisodeNumber,
+          episodeName: episode.episodeName,
+          overview: episode.overview,
+          watched: false
+        })
+      });
       return newShow;
     })
     .then(function(show) {
