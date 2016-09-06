@@ -5,6 +5,7 @@ module.exports = function (app, express) {
   app.get('/api/shows', showController.getShows);
   app.post('/api/shows', showController.addNewShow);
   app.post('/api/show', showController.removeShow);
+  app.post('/api/show', showController.updateShow);
 
   app.use(helpers.errorHandler);
 };
