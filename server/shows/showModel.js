@@ -6,7 +6,8 @@ var showSchema = new mongoose.Schema({
   network: String,
   firstAired: String,
   overview: String,
-  banner: String
+  banner: String,
+  rating: Number
 });
 
 module.exports = mongoose.model('Show', showSchema);
