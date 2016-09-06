@@ -14,6 +14,24 @@ export function addShows(dramas) {
   }
 }
 
+export function changeRating(rating, id) {
+  return {
+    type: 'CHANGE_RATING',
+    rating,
+    id
+  }
+}
+
+export function changeRatingInDb(rating, id) {
+  return function(dispatch, getState) {
+    let state = getState();
+
+    return axios.put('/api/shows/' + id, { rating })
+      .then(res => console.log('rating changed'))
+      .catch(err => console.log('error: ', err));
+  }
+}
+
 export function fetchShows() {
   return function(dispatch, getState) {
     let state = getState();
@@ -42,7 +60,6 @@ export function fetchShow(searchQuery) {
 }
 
 export function removeDrama(id) {
-  console.log('about to remove drama from state, id: ', id);
   return {
     type: 'REMOVE_DRAMA',
     id
@@ -50,11 +67,10 @@ export function removeDrama(id) {
 }
 
 export function removeDramaFromDb(id) {
-  console.log('about to remove drama from db, id: ', id);
   return function(dispatch, getState) {
     let state = getState();
 
-    return axios.post('/api/show', { id })
+    return axios.delete('/api/shows/' + id)
       .then(res => dispatch(removeDrama(id)))
       .catch(err => console.log('error: ', err));
   }

@@ -51,19 +51,32 @@ function getShows(req, res, next) {
 }
 
 function removeShow(req, res, next) {
-  var query = Show.find({ _id: req.body.id });
+  console.log(req.params);
+  var query = Show.find({ _id: req.params.id });
 
-  query.exec(function(err, show) {
-    if (err) return next(err);
-    query.remove()
-      .exec(function(show) {
+  query.remove()
+    .exec(function(err, show) {
+      if (err) return next(err);
+      res.status(200).send(show);
+    });
+}
+
+function updateShow(req, res, next) {
+  var query = Show.find({ _id: req.params.id });
+
+  if (req.body.rating) {
+    query.update({ rating: req.body.rating })
+      .exec(function(err, show) {
+        if (err) return next(err);
+        console.log('show: ', show);
         res.status(200).send(show);
       });
-  });
+  }
 }
 
 module.exports = {
   addNewShow: addNewShow,
   getShows: getShows,
-  removeShow: removeShow
+  removeShow: removeShow,
+  updateShow: updateShow
 };
