@@ -1,7 +1,7 @@
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import { toggleWatched } from '../actionCreators';
+import { removeDramaFromDb } from '../actionCreators';
 import { store } from '../index';
 
 export default React.createClass({
@@ -9,6 +9,7 @@ export default React.createClass({
 
   render() {
     let { drama } = this.props
+    let id = drama.get('_id');
 
     return (
       <div className="current-show">
@@ -16,6 +17,8 @@ export default React.createClass({
         <p>{drama.get('network')}</p>
         <p>{drama.get('firstAired')}</p>
         <p>{drama.get('overview')}</p>
+        <button
+          onClick={() => store.dispatch(removeDramaFromDb(id))}>Remove Drama</button>
       </div>
     )
   }
