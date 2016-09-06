@@ -9,25 +9,32 @@ export default React.createClass({
   mixins: [PureRenderMixin],
 
   render() {
-    let { drama } = this.props
+    let { drama } = this.props;
     let id = drama.get('_id');
-    console.log('drama: ', drama);
 
     return (
-      <div className="current-show">
-        <h1>{drama.get('name')}</h1>
-        <p>{drama.get('network')}</p>
-        <p>{drama.get('firstAired')}</p>
-        <StarRatingComponent
-          name="drama-rating"
-          value={drama.get('rating')}
-          starCount={5}
-          rating={drama.get('rating')}
-          editing={true}
-          onStarClick={rating => store.dispatch(changeRatingInDb(rating, id))} />
-        <p>{drama.get('overview')}</p>
-        <button
-          onClick={() => store.dispatch(removeDramaFromDb(id))}>Remove Drama</button>
+      <div className="drama-container">
+        <div className="drama-header">
+          <div className="drama-info">
+            <h2>{drama.get('name')}</h2>
+            <p className="air-date"><span>First Aired:</span> {drama.get('firstAired')}</p>
+            <StarRatingComponent
+              name="drama-rating"
+              value={drama.get('rating')}
+              starCount={5}
+              rating={drama.get('rating')}
+              editing={true}
+              onStarClick={rating => store.dispatch(changeRatingInDb(rating, id))} />
+          </div>
+          <figure className="drama-banner">
+            <img
+              src={drama.get('banner')} />
+          </figure>
+        </div>
+        <p className="overview">{drama.get('overview')}</p>
+        <p
+          className="remove-drama-text"
+          onClick={() => store.dispatch(removeDramaFromDb(id))}>remove drama</p>
       </div>
     )
   }

@@ -1,0 +1,136 @@
+/* ------------------------------------------------- */
+/* BASIC SETUP */
+/* ------------------------------------------------- */
+
+html, body, header, nav, div,
+h1, h2, h3, p, figure, ul, input, a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+a, li {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+  color: #4A4A4A;
+  font-size: 100%;
+}
+
+.app-container {
+  width: 95%;
+  margin: 0 auto;
+}
+
+/* ------------------------------------------------- */
+/* FONTS */
+/* ------------------------------------------------- */
+
+h2 {
+  font-weight: 600;
+}
+
+/* ------------------------------------------------- */
+/* TITLE BAR / ADD SHOW FORM */
+/* ------------------------------------------------- */
+
+.add-show-container {
+  width: 35%;
+  position: fixed;
+  height: 100vh;
+}
+
+.add-show-content {
+  position: relative;
+  max-width: 75%;
+  top: 50%;
+  left: 0;
+  text-align: center;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.add-show-content h1 {
+  margin-bottom: 20px;
+}
+
+.add-show-content input[type="text"] {
+  height: 25px;
+  width: 200px;
+  padding-left: 15px;
+  margin-bottom: 5px;
+  border: 1px solid #E1E1E1;
+  -webkit-appearance: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+.add-show-content input[type="submit"] {
+  background-color: #4A4A4A;
+  color: #FFF;
+  padding: 5px 20px;
+  height: 25px;
+  width: 200px;
+  font-weight: 600;
+  -webkit-appearance: none;
+  border-radius: 0;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* ------------------------------------------------- */
+/* DRAMAS */
+/* ------------------------------------------------- */
+
+.current-shows-container {
+  padding: 0 40px;
+}
+
+/* ------------------------------------------------- */
+/* DRAMA */
+/* ------------------------------------------------- */
+
+.drama-container {
+  width: 65%;
+  float: right;
+  margin: 0 auto;
+  border-bottom: 1px solid #EEEEEE;
+  padding: 75px 0;
+}
+
+.drama-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.drama-header h2 {
+  margin-bottom: 5px;
+}
+
+.air-date span {
+  font-weight: 400;
+}
+
+.drama-banner {
+  width: 400px;
+}
+
+.drama-banner img {
+  width: 100%;
+}
+
+.overview {
+  margin: 40px 0;
+  line-height: 1.5em;
+}
+
+.remove-drama-text {
+  font-weight: 600;
+}

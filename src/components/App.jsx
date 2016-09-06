@@ -1,5 +1,6 @@
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
+import '../style.css';
 
 import AddShow from './AddShow';
 import { CurrentShowsContainer } from './CurrentShows';

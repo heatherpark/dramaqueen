@@ -20,7 +20,7 @@ export const CurrentShows = React.createClass({
 
   render() {
     return (
-      <div className="current-shows">
+      <div className="current-shows-container">
         {this.getWatchedDramas().map(drama =>
           <CurrentShow
             drama={drama}
