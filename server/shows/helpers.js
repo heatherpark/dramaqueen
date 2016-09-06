@@ -1,5 +1,5 @@
 var rp = require('request-promise');
-var key = require('../config/keys.js').TVDB.API_KEY;
+var tvdbKey = require('../config/client.js').TVDB.API_KEY;
 var Show = require('./showModel.js');
 var Q = require('q');
 
@@ -9,57 +9,32 @@ var updateShow = Q.nbind(Show.findOneAndUpdate, Show);
 var tvdbUri = 'https://api.thetvdb.com';
 var token;
 
-function getEpisodes(showId, token) {
-  var options = {
-    uri: tvdbUri + '/series/' + showId + '/episodes',
-    headers: {
-      'Authorization': 'Bearer ' + token
-    },
-    qs: {
-      page: '1'
-    },
-    json: true
-  };
-
-  return rp(options)
-    .then(function(res) {
-      var episodes = res.data;
-      return episodes;
-    });
-}
+var cloudinary = require('cloudinary');
+var cloudinaryClient = require('../config/client.js').cloudinary;
+cloudinary.config({
+  cloud_name: cloudinaryClient.CLOUD_NAME,
+  api_key: cloudinaryClient.API_KEY,
+  api_secret: cloudinaryClient.API_SECRET
+});
 
 function addShowToDb(show) {
   var newShow = new Show({
     _id: show.id,
     name: show.seriesName,
-    currentShow: true,
-    airsDayOfWeek: show.airsDayOfWeek,
-    airsTime: show.airsTime,
     network: show.network,
-    episodes: []
+    firstAired: show.firstAired,
+    overview: show.overview
   });
 
-  return module.exports.getEpisodes(show.id, token)
-    .then(function(episodes) {
-      episodes.forEach(function(episode) {
-        console.log(episode.season);
-        if (episode.airedSeason > 0) {
-          newShow.episodes.push({
-            season: episode.airedSeason,
-            episodeNumber: episode.airedEpisodeNumber,
-            episodeName: episode.episodeName,
-            overview: episode.overview,
-            watched: false
-          });
-        }
-      });
-      return newShow;
+  var bannerUrl = 'http://thetvdb.com/banners/' + show.banner;
+
+  return cloudinary.uploader
+    .upload(bannerUrl)
+    .then(function(res) {
+      newShow.banner = res.url;
     })
-    .then(function(show) {
-      return saveShow(show);
-    })
-    .then(function(show) {
-      return show;
+    .then(function() {
+      return saveShow(newShow);
     });
 }
 
@@ -81,7 +56,7 @@ function getToken() {
   var options = {
     method: 'POST',
     uri: tvdbUri + '/login',
-    body: { apikey: key },
+    body: { apikey: tvdbKey },
     json: true
   };
 
@@ -131,23 +106,10 @@ function searchForShow(showName, token) {
     });
 }
 
-function toggleCurrentShow(showId) {
-  return findShow({ _id: showId })
-    .then(function(show) {
-      show.currentShow = !show.currentShow;
-      return show;
-    })
-    .catch(function(err) {
-      console.log('error: ', err);
-    });
-}
-
 module.exports = {
-  getEpisodes: getEpisodes,
   addShowToDb: addShowToDb,
   checkForShowInDb: checkForShowInDb,
   getToken: getToken,
   getShowInfo: getShowInfo,
-  searchForShow: searchForShow,
-  toggleCurrentShow: toggleCurrentShow
+  searchForShow: searchForShow
 };

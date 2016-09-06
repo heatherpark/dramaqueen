@@ -41,16 +41,8 @@ function addNewShow(req, res, next) {
     });
 }
 
-function getShowById(req, res, next) {
-  Show.findById(req.params.id, function(err, show) {
-    if (err) return next(err);
-    res.status(200).send(show);
-  });
-}
-
 function getShows(req, res, next) {
-  var query = Show.find()
-    .where({ currentShow: true });
+  var query = Show.find();
 
   query.exec(function(err, shows) {
     if (err) return next(err);
@@ -59,18 +51,19 @@ function getShows(req, res, next) {
 }
 
 function removeShow(req, res, next) {
-  return helpers.toggleCurrentShow(req.params.id)
-    .then(function(show) {
-      res.status(200).send(show);
-    })
-    .catch(function(err) {
-      console.log('error: ', err);
-    });
+  var query = Show.find({ _id: req.body.id });
+
+  query.exec(function(err, show) {
+    if (err) return next(err);
+    query.remove()
+      .exec(function(show) {
+        res.status(200).send(show);
+      });
+  });
 }
 
 module.exports = {
   addNewShow: addNewShow,
   getShows: getShows,
-  getShowById: getShowById,
   removeShow: removeShow
 };

@@ -3,23 +3,28 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 import CurrentShow from './CurrentShow';
+import { fetchShows } from '../actionCreators';
+import { store } from '../index';
 
 /** dumb component **/
 export const CurrentShows = React.createClass({
   mixins: [PureRenderMixin],
 
-  getCurrentShows() {
-    console.log('in current shows', this.props.currentShows)
-    return this.props.currentShows || [];
+  componentWillMount() {
+    store.dispatch(fetchShows());
+  },
+
+  getWatchedDramas() {
+    return this.props.watchedDramas || [];
   },
 
   render() {
     return (
       <div className="current-shows">
-        {this.getCurrentShows().map(show =>
+        {this.getWatchedDramas().map(drama =>
           <CurrentShow
-            show={show}
-            key={show.get('name')} />
+            drama={drama}
+            key={drama.get('name')} />
         )}
       </div>
     )
@@ -28,7 +33,7 @@ export const CurrentShows = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    currentShows: state.get('currentShows')
+    watchedDramas: state.get('watchedDramas')
   };
 }
 

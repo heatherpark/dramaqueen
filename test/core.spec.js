@@ -1,127 +1,74 @@
 import { List, Map } from 'immutable';
 import { expect } from 'chai';
 
-import { addShow, removeShow, setCurrentShows, toggleWatched } from '../src/store/core';
+import { addDrama, removeDrama, setWatchedDramas } from '../src/store/core';
 
 describe('application logic', () => {
 
-  describe('setCurrentShows', () => {
+  describe('setDramas', () => {
 
-    it('adds the current shows to the state', () => {
+    it('adds watched dramas to the state', () => {
       const state = Map();
-      const shows = [
-        {name: 'Friends'},
-        {name: 'Will & Grace'}
+      const dramas = [
+        {name: 'Reply 1997'},
+        {name: 'Misaeng'}
       ];
-      const nextState = setCurrentShows(state, shows);
+      const nextState = setWatchedDramas(state, dramas);
 
       expect(nextState).to.equal(Map({
-        currentShows: List.of(
-          Map({name: 'Friends'}),
-          Map({name: 'Will & Grace'})
+        watchedDramas: List.of(
+          Map({name: 'Reply 1997'}),
+          Map({name: 'Misaeng'})
         )
       }));
     });
 
   });
 
-  describe('addShow', () => {
+  describe('addDrama', () => {
 
-    it('adds new show to list of current shows', () => {
+    it('adds new show to list of watched dramas', () => {
       const state = Map({
-        currentShows: List.of(
-          Map({name: 'Friends'}),
-          Map({name: 'Will & Grace'})
+        watchedDramas: List.of(
+          Map({name: 'Reply 1997'}),
+          Map({name: 'Misaeng'})
         )
       });
-      const show = {name: 'Suits'};
-      const nextState = addShow(state, show);
+      const drama = {name: 'Descendants of the Sun'};
+      const nextState = addDrama(state, drama);
 
       expect(nextState).to.equal(Map({
-        currentShows: List.of(
-          Map({name: 'Friends'}),
-          Map({name: 'Will & Grace'}),
-          Map({name: 'Suits'})
+        watchedDramas: List.of(
+          Map({name: 'Reply 1997'}),
+          Map({name: 'Misaeng'}),
+          Map({name: 'Descendants of the Sun'})
         )
       }));
     });
 
   });
 
-  describe('removeShow', () => {
+  describe('removeDrama', () => {
 
-    it('removes show from list of current shows', () => {
+    it('removes show from list of watched dramas', () => {
       const state = Map({
-        currentShows: List.of(
-          Map({_id: 1, name: 'Friends'}),
-          Map({_id: 2, name: 'Will & Grace'}),
-          Map({_id: 3, name: 'Suits'})
+        watchedDramas: List.of(
+          Map({_id: 1, name: 'Reply 1997'}),
+          Map({_id: 2, name: 'Misaeng'}),
+          Map({_id: 3, name: 'Descendants of the Sun'})
         )
       });
-      const showId = 3;
-      const nextState = removeShow(state, showId);
+      const dramaId = 3;
+      const nextState = removeDrama(state, dramaId);
 
       expect(nextState).to.equal(Map({
-        currentShows: List.of(
-          Map({_id: 1, name: 'Friends'}),
-          Map({_id: 2, name: 'Will & Grace'})
+        watchedDramas: List.of(
+          Map({_id: 1, name: 'Reply 1997'}),
+          Map({_id: 2, name: 'Misaeng'})
         )
       }));
     });
 
   });
 
-  describe('toggleWatched', () => {
-    // TODO: modularize further
-    it('toggles watched property on specified episode', () => {
-      const state = Map({
-        currentShows: List.of(
-          Map(
-            {
-              name: 'Friends',
-              episodes: List.of(Map({ id: 1, watched: false }))
-            }
-          ),
-          Map(
-            {
-              name: 'Will & Grace',
-              episodes: List.of(Map({ id: 1, watched: false }))
-            }
-          ),
-          Map(
-            {
-              name: 'Suits',
-              episodes: List.of(Map({ id: 1, watched: false }))
-            }
-          )
-        )
-      });
-      const show = {name: 'Suits'};
-      const nextState = toggleWatched(state, show);
-
-      expect(nextState).to.equal(Map({
-        currentShows: List.of(
-          Map(
-            {
-              name: 'Friends',
-              episodes: List.of(Map({ id: 1, watched: false }))
-            }
-          ),
-          Map(
-            {
-              name: 'Will & Grace',
-              episodes: List.of(Map({ id: 1, watched: false }))
-            }
-          ),
-          Map(
-            {
-              name: 'Suits',
-              episodes: List.of(Map({ id: 1, watched: true }))
-            }
-          )
-        )
-      }));
-    });
-
-  });
 });

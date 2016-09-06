@@ -8,11 +8,19 @@ export default React.createClass({
   mixins: [PureRenderMixin],
 
   render() {
+    let input
+
     return (
       <div className="add-show">
-        <button
-          className="add-show"
-          onClick={() => store.dispatch(fetchShow('Descendants of the Sun'))}>Search for Show</button>
+        <form onSubmit={e => {
+          e.preventDefault()
+          input.value.trim()
+          store.dispatch(fetchShow(input.value))
+          input.value = ''}}>
+          {/* create reference to input node for form submission*/}
+          <input ref={node => input = node} />
+          <button type="submit">Add Show</button>
+        </form>
       </div>
     )
   }
