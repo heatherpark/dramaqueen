@@ -8,15 +8,14 @@ export default React.createClass({
   mixins: [PureRenderMixin],
 
   render() {
-    let { show } = this.props
-    let id = show.get('_id')
+    let { drama } = this.props
 
     return (
       <div className="current-show">
-        <h1>{show.get('name')}</h1>
-        <p>{show.get('network')}</p>
-        <p>{show.get('firstAired')}</p>
-        <p>{show.get('overview')}</p>
+        <h1>{drama.get('name')}</h1>
+        <p>{drama.get('network')}</p>
+        <p>{drama.get('firstAired')}</p>
+        <p>{drama.get('overview')}</p>
       </div>
     )
   }

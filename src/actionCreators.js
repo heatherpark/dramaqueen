@@ -1,30 +1,23 @@
 import axios from 'axios';
 
-export function removeShow(id) {
+export function addShow(drama) {
   return {
-    type: 'REMOVE_SHOW',
-    id
+    type: 'ADD_DRAMA',
+    drama
   }
 }
 
-export function toggleWatched(id) {
-  console.log('axios: ', id);
+export function addShows(shows) {
+
+}
+
+export function fetchShows() {
   return function(dispatch, getState) {
     let state = getState();
 
-    return axios.post('/api/shows/' + id)
-      .then(res => {
-        let id = res.data._id;
-        dispatch(removeShow(id));
-      })
+    return axios.get('/api/shows')
+      .then(res => dispatch(addShows(shows)))
       .catch(err => console.log('error: ', err));
-  }
-}
-
-export function addShow(show) {
-  return {
-    type: 'ADD_SHOW',
-    show
   }
 }
 
@@ -38,10 +31,17 @@ export function fetchShow(searchQuery) {
           // TODO: add alert for message
           console.log(res.data.message);
         } else {
-          let show = res.data;
-          dispatch(addShow(show));
+          let drama = res.data;
+          dispatch(addShow(drama));
         }
       })
       .catch(err => console.log('error: ', err));
+  }
+}
+
+export function removeShow(id) {
+  return {
+    type: 'REMOVE_DRAMA',
+    id
   }
 }

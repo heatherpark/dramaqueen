@@ -8,18 +8,18 @@ import CurrentShow from './CurrentShow';
 export const CurrentShows = React.createClass({
   mixins: [PureRenderMixin],
 
-  getCurrentShows() {
-    console.log('in current shows', this.props.currentShows)
-    return this.props.currentShows || [];
+  getWatchedDramas() {
+    console.log('getting watched dramas');
+    return this.props.watchedDramas || [];
   },
 
   render() {
     return (
       <div className="current-shows">
-        {this.getCurrentShows().map(show =>
+        {this.getWatchedDramas().map(drama =>
           <CurrentShow
-            show={show}
-            key={show.get('name')} />
+            drama={drama}
+            key={drama.get('name')} />
         )}
       </div>
     )
@@ -28,7 +28,7 @@ export const CurrentShows = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    currentShows: state.get('currentShows')
+    watchedDramas: state.get('watchedDramas')
   };
 }
 
