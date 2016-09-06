@@ -23,7 +23,8 @@ function addShowToDb(show) {
     name: show.seriesName,
     network: show.network,
     firstAired: show.firstAired,
-    overview: show.overview
+    overview: show.overview,
+    rating: 0
   });
 
   var bannerUrl = 'http://thetvdb.com/banners/' + show.banner;
