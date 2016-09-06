@@ -8,20 +8,20 @@ describe('store', () => {
   it('is a Redux store configured with the correct reducer', () => {
     const store = configureStore();
     expect(store.getState()).to.equal(Map({
-      currentShows: List()
+      watchedDramas: List()
     }));
 
     store.dispatch({
-      type: 'SET_CURRENT_SHOWS',
-      shows: [
-        {name: 'Friends'},
-        {name: 'Will & Grace'}
+      type: 'SET_WATCHED_DRAMAS',
+      dramas: [
+        {name: 'Reply 1997'},
+        {name: 'Misaeng'}
       ]
     });
     expect(store.getState()).to.equal(fromJS({
-      currentShows: [
-        {name: 'Friends'},
-        {name: 'Will & Grace'}
+      watchedDramas: [
+        {name: 'Reply 1997'},
+        {name: 'Misaeng'}
       ]
     }));
   });

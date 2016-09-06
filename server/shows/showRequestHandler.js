@@ -63,6 +63,5 @@ function removeShow(req, res, next) {
 module.exports = {
   addNewShow: addNewShow,
   getShows: getShows,
-  getShowById: getShowById,
   removeShow: removeShow
 };

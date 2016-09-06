@@ -1,38 +1,40 @@
 import { List, Map } from 'immutable';
 
 export const INITIAL_STATE = Map({
-  currentShows: List()
+  watchedDramas: List()
 });
 
-export function setCurrentShows(state, shows) {
-  shows = shows.map(show => Map(show));
-  return state.set('currentShows', List(shows));
+export function setWatchedDramas(state, dramas) {
+  dramas = dramas.map(drama => Map(drama));
+  return state.set('watchedDramas', List(dramas));
 }
 
-export function addShow(state, show) {
-  return state.update('currentShows', currentShows => currentShows.push(Map(show)));
+export function addDrama(state, drama) {
+  return state.update('watchedDramas',
+    watchedDramas => watchedDramas.push(Map(drama))
+  );
 }
 
-export function removeShow(state, showId) {
-  var currentShows = state
-    .get('currentShows')
-    .filterNot(currentShow => currentShow.get('_id') === showId);
-  return state.set('currentShows', currentShows);
+export function removeDrama(state, dramaId) {
+  var watchedDramas = state
+    .get('watchedDramas')
+    .filterNot(drama => drama.get('_id') === dramaId);
+  return state.set('watchedDramas', watchedDramas);
 }
 
 // TODO: modularize further
-export function toggleWatched(state, show, episodeId) {
-  var showToUpdate = state
-    .get('currentShows')
-    .findIndex(targetShow => targetShow.get('name') === show.name);
+// export function toggleWatched(state, drama, episodeId) {
+//   var showToUpdate = state
+//     .get('dramas')
+//     .findIndex(targetShow => targetShow.get('name') === show.name);
 
-  var episodeToUpdate = state
-    .getIn(['currentShows', showToUpdate, 'episodes'])
-    .findIndex(targetEpisode => targetEpisode.get('id') === episodeId);
+//   var episodeToUpdate = state
+//     .getIn(['dramas', showToUpdate, 'episodes'])
+//     .findIndex(targetEpisode => targetEpisode.get('id') === episodeId);
 
-  return state
-    .updateIn(
-      ['currentShows', showToUpdate, 'episodes', episodeToUpdate, 'watched'],
-      watched => !watched
-    );
-}
+//   return state
+//     .updateIn(
+//       ['dramas', showToUpdate, 'episodes', episodeToUpdate, 'watched'],
+//       watched => !watched
+//     );
+// }

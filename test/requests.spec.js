@@ -5,7 +5,7 @@ var app = require('../server/server.js').app;
 
 var Show = require('../server/shows/showModel.js');
 var helpers = require('../server/shows/helpers.js');
-var key = require('../server/config/keys.js').TVDB.API_KEY;
+var key = require('../server/config/client.js').TVDB.API_KEY;
 
 describe('Show-related server requests that require the database', function() {
   var shows = [
@@ -24,7 +24,8 @@ describe('Show-related server requests that require the database', function() {
     done();
   });
 
-  it('Sending POST request with show ID as param should toggle currentShow property of show in DB', function(done) {
+  // TODO: remove
+  xit('Sending POST request with show ID as param should toggle currentShow property of show in DB', function(done) {
     request(app)
       .post('/api/shows/' + shows[1]._id)
       .expect(function(res) {
@@ -95,16 +96,5 @@ describe('Show-related server requests that require the database', function() {
       });
   });
 
-  it('Be able to fetch episodes of a show by show ID', function(done) {
-    helpers.getEpisodes(showId, token)
-      .then(function(episodes) {
-        expect(episodes[0].episodeName).to.equal('Pilot');
-        done();
-      })
-      .catch(function(err) {
-        console.log('error: ', err);
-        done();
-      });
-  });
 });
 
