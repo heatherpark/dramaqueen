@@ -7,16 +7,18 @@ export function addShow(drama) {
   }
 }
 
-export function addShows(shows) {
-
+export function addShows(dramas) {
+  return {
+    type: 'SET_WATCHED_DRAMAS',
+    dramas
+  }
 }
 
 export function fetchShows() {
   return function(dispatch, getState) {
     let state = getState();
-
     return axios.get('/api/shows')
-      .then(res => dispatch(addShows(shows)))
+      .then(res => dispatch(addShows(res.data)))
       .catch(err => console.log('error: ', err));
   }
 }

@@ -3,13 +3,18 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 import CurrentShow from './CurrentShow';
+import { fetchShows } from '../actionCreators';
+import { store } from '../index';
 
 /** dumb component **/
 export const CurrentShows = React.createClass({
   mixins: [PureRenderMixin],
 
+  componentWillMount() {
+    store.dispatch(fetchShows());
+  },
+
   getWatchedDramas() {
-    console.log('getting watched dramas');
     return this.props.watchedDramas || [];
   },
 
