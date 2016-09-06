@@ -12,18 +12,15 @@ export default React.createClass({
 
     return (
       <div className="add-show-container">
-        <div className="add-show-content">
-          <h1>drama queen</h1>
-          <form onSubmit={e => {
-            e.preventDefault()
-            input.value.trim()
-            store.dispatch(fetchShow(input.value))
-            input.value = ''}}>
-            {/* create reference to input node for form submission*/}
-            <input type="text" ref={node => input = node} />
-            <input type="submit" value="add show" />
-          </form>
-        </div>
+        <form onSubmit={e => {
+          e.preventDefault()
+          input.value.trim()
+          store.dispatch(fetchShow(input.value))
+          input.value = ''}}>
+          {/* create reference to input node for form submission*/}
+          <input type="text" ref={node => input = node} />
+          <input type="submit" value="add drama" />
+        </form>
       </div>
     )
   }

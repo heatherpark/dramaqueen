@@ -12,6 +12,7 @@ export const CurrentShows = React.createClass({
 
   componentWillMount() {
     store.dispatch(fetchShows());
+    console.log('state changed: ', this.props.watchedDramas);
   },
 
   getWatchedDramas() {
@@ -21,10 +22,10 @@ export const CurrentShows = React.createClass({
   render() {
     return (
       <div className="current-shows-container">
-        {this.getWatchedDramas().map(drama =>
+        {this.getWatchedDramas().map((drama, index) =>
           <CurrentShow
             drama={drama}
-            key={drama.get('name')} />
+            key={index} />
         )}
       </div>
     )

@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
@@ -22,7 +23,6 @@ export default React.createClass({
               name="drama-rating"
               value={drama.get('rating')}
               starCount={5}
-              rating={drama.get('rating')}
               editing={true}
               onStarClick={rating => store.dispatch(changeRatingInDb(rating, id))} />
           </div>
@@ -32,9 +32,10 @@ export default React.createClass({
           </figure>
         </div>
         <p className="overview">{drama.get('overview')}</p>
-        <p
+        <a
+          href="javaScript:void(0);"
           className="remove-drama-text"
-          onClick={() => store.dispatch(removeDramaFromDb(id))}>remove drama</p>
+          onClick={() => store.dispatch(removeDramaFromDb(id))}>remove drama</a>
       </div>
     )
   }

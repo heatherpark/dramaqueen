@@ -68,7 +68,6 @@ function updateShow(req, res, next) {
     query.update({ rating: req.body.rating })
       .exec(function(err, show) {
         if (err) return next(err);
-        console.log('show: ', show);
         res.status(200).send(show);
       });
   }

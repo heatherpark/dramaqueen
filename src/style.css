@@ -10,21 +10,39 @@ h1, h2, h3, p, figure, ul, input, a {
   box-sizing: border-box;
 }
 
-a, li {
+a {
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: lowercase;
+  color: #4A4A4A;
 }
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 300;
   color: #4A4A4A;
-  font-size: 100%;
+  font-size: 90%;
 }
 
 .app-container {
   width: 95%;
   margin: 0 auto;
+}
+
+.left-container {
+  width: 35%;
+  position: fixed;
+  height: 100vh;
+  text-align: center;
+}
+
+.left-container-content {
+  position: relative;
+  max-width: 75%;
+  top: 50%;
+  left: 0;
+  text-align: center;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 /* ------------------------------------------------- */
@@ -39,40 +57,26 @@ h2 {
 /* TITLE BAR / ADD SHOW FORM */
 /* ------------------------------------------------- */
 
-.add-show-container {
-  width: 35%;
-  position: fixed;
-  height: 100vh;
-}
-
-.add-show-content {
-  position: relative;
-  max-width: 75%;
-  top: 50%;
-  left: 0;
-  text-align: center;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
 .add-show-content h1 {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.add-show-content input[type="text"] {
+.add-show-container input[type="text"] {
   height: 25px;
   width: 200px;
   padding-left: 15px;
+  margin: 0 auto;
   margin-bottom: 5px;
   border: 1px solid #E1E1E1;
   -webkit-appearance: none;
+  display: block;
 }
 
 input:focus {
   outline: none;
 }
 
-.add-show-content input[type="submit"] {
+.add-show-container input[type="submit"] {
   background-color: #4A4A4A;
   color: #FFF;
   padding: 5px 20px;
@@ -81,7 +85,8 @@ input:focus {
   font-weight: 600;
   -webkit-appearance: none;
   border-radius: 0;
-  display: inline-block;
+  margin: 0 auto;
+  display: block;
   cursor: pointer;
 }
 
@@ -102,7 +107,7 @@ input:focus {
   float: right;
   margin: 0 auto;
   border-bottom: 1px solid #EEEEEE;
-  padding: 75px 0;
+  padding: 60px 0;
 }
 
 .drama-header {

@@ -10,14 +10,17 @@ export function addDrama(state, drama) {
   );
 }
 
-// export function changeRating(state, rating, dramaId) {
-//   let dramaIndex = state
-//     .get('watchedDramas')
-//     .findIndex(drama => drama.get('_id') === dramaId);
+export function changeRating(state, rating, dramaId) {
+  let dramaIndex = state
+    .get('watchedDramas')
+    .findIndex(drama => drama.get('_id') === dramaId);
 
-//   return state.updateIn(['watchedDramas', dramaIndex],
-//     drama => drama.rating = rating);
-// }
+  let watchedDramas = state
+    .updateIn(['watchedDramas', dramaIndex],
+      drama => drama.set('rating', rating))
+
+  return state.set('watchedDramas', watchedDramas);
+}
 
 export function removeDrama(state, dramaId) {
   let watchedDramas = state
