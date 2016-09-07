@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "node server/server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/helper.js  --recursive",
     "test:watch": "npm run test -- --watch",
-    "prod": "NODE_ENV=production node server/server.js",
     "build": "webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "repository": {
