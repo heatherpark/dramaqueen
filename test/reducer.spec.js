@@ -9,15 +9,15 @@ describe('reducer', () => {
     const action = {
       type: 'SET_WATCHED_DRAMAS',
       dramas: [
-        {name: 'Reply 1997'},
-        {name: 'Misaeng'}
+        {_id: 1, name: 'Reply 1997'},
+        {_id: 2, name: 'Misaeng'}
       ]
     };
     const nextState = reducer(undefined, action);
     expect(nextState).to.equal(fromJS({
       watchedDramas: [
-        {name: 'Reply 1997'},
-        {name: 'Misaeng'}
+        {_id: 1, name: 'Reply 1997'},
+        {_id: 2, name: 'Misaeng'}
       ]
     }));
   });
@@ -29,16 +29,16 @@ describe('reducer', () => {
     const action = {
       type: 'SET_WATCHED_DRAMAS',
       dramas: [
-        {name: 'Reply 1997'},
-        {name: 'Misaeng'}
+        {_id: 1, name: 'Reply 1997'},
+        {_id: 2, name: 'Misaeng'}
       ]
     };
     const nextState = reducer(initialState, action);
 
     expect(nextState).to.equal(fromJS({
       watchedDramas: [
-        {name: 'Reply 1997'},
-        {name: 'Misaeng'}
+        {_id: 1, name: 'Reply 1997'},
+        {_id: 2, name: 'Misaeng'}
       ]
     }));
   });
@@ -46,21 +46,21 @@ describe('reducer', () => {
   it('handles ADD_DRAMA', () => {
     const initialState = fromJS({
       watchedDramas: [
-        {name: 'Reply 1997'},
-        {name: 'Misaeng'}
+        {_id: 1, name: 'Reply 1997'},
+        {_id: 2, name: 'Misaeng'}
       ]
     });
     const action = {
       type: 'ADD_DRAMA',
-      drama: {name: 'Descendants of the Sun'}
+      drama: {_id: 3, name: 'Descendants of the Sun'}
     };
     const nextState = reducer(initialState, action);
 
     expect(nextState).to.equal(fromJS({
       watchedDramas: [
-        {name: 'Reply 1997'},
-        {name: 'Misaeng'},
-        {name: 'Descendants of the Sun'}
+        {_id: 1, name: 'Reply 1997'},
+        {_id: 2, name: 'Misaeng'},
+        {_id: 3, name: 'Descendants of the Sun'}
       ]
     }));
   });

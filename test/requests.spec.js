@@ -24,17 +24,6 @@ describe('Show-related server requests that require the database', function() {
     done();
   });
 
-  // TODO: remove
-  xit('Sending POST request with show ID as param should toggle currentShow property of show in DB', function(done) {
-    request(app)
-      .post('/api/shows/' + shows[1]._id)
-      .expect(function(res) {
-        expect(res.body.currentShow).to.equal(true);
-      })
-      .expect(200)
-      .end(done);
-  });
-
   it('Should be able to check if requested song already exists in DB', function(done) {
     helpers.checkForShowInDb(shows[0]._id)
       .then(function(show) {
@@ -48,7 +37,7 @@ describe('Show-related server requests that require the database', function() {
   });
 });
 
-describe('Show-related server requests that require the database', function() {
+describe('Requests to TVDB API', function() {
   var uri = 'https://api.thetvdb.com';
   var episodeId = 2075261;
   var showName = 'Pretty Little Liars';
@@ -72,7 +61,7 @@ describe('Show-related server requests that require the database', function() {
       });
   });
 
-  it('Be able to search TVDB for a show by name', function(done) {
+  it('Should be able to search TVDB for a show by name', function(done) {
     helpers.searchForShow(showName, token)
       .then(function(id) {
         expect(id).to.equal(showId);
@@ -84,7 +73,7 @@ describe('Show-related server requests that require the database', function() {
       });
   });
 
-  it('Be able to fetch show info by show ID', function(done) {
+  it('Should be able to fetch show info by show ID', function(done) {
     helpers.getShowInfo(showId, token)
       .then(function(show) {
         expect(show.id).to.equal(showId);

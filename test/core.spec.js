@@ -10,15 +10,15 @@ describe('application logic', () => {
     it('adds watched dramas to the state', () => {
       const state = Map();
       const dramas = [
-        {name: 'Reply 1997'},
-        {name: 'Misaeng'}
+        {_id: 1, name: 'Reply 1997'},
+        {_id: 2, name: 'Misaeng'}
       ];
       const nextState = setWatchedDramas(state, dramas);
 
       expect(nextState).to.equal(Map({
         watchedDramas: List.of(
-          Map({name: 'Reply 1997'}),
-          Map({name: 'Misaeng'})
+          Map({_id: 1, name: 'Reply 1997'}),
+          Map({_id: 2, name: 'Misaeng'})
         )
       }));
     });
@@ -30,18 +30,18 @@ describe('application logic', () => {
     it('adds new show to list of watched dramas', () => {
       const state = Map({
         watchedDramas: List.of(
-          Map({name: 'Reply 1997'}),
-          Map({name: 'Misaeng'})
+          Map({_id: 1, name: 'Reply 1997'}),
+          Map({_id: 2, name: 'Misaeng'})
         )
       });
-      const drama = {name: 'Descendants of the Sun'};
+      const drama = {_id: 3, name: 'Descendants of the Sun'};
       const nextState = addDrama(state, drama);
 
       expect(nextState).to.equal(Map({
         watchedDramas: List.of(
-          Map({name: 'Reply 1997'}),
-          Map({name: 'Misaeng'}),
-          Map({name: 'Descendants of the Sun'})
+          Map({_id: 1, name: 'Reply 1997'}),
+          Map({_id: 2, name: 'Misaeng'}),
+          Map({_id: 3, name: 'Descendants of the Sun'})
         )
       }));
     });
