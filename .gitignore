@@ -2,8 +2,5 @@
 node_modules/
 npm-debug.log
 
-# build files
-dist/
-
 # API keys
 server/config/client.js
