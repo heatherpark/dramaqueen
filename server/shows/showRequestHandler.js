@@ -1,18 +1,24 @@
+var Q = require('q');
+
 var Show = require('./showModel.js');
+var findShows = Q.nbind(Show.find, Show);
+var findShow = Q.nbind(Show.findOne, Show);
 var helpers = require('./helpers.js');
 
 function addNewShow(req, res, next) {
-  var searchQuery = req.body.searchQuery;
+  var query = req.body.searchQuery;
   var showId;
   var token;
 
   helpers.getToken()
     .then(function(returnedToken) {
+      // set value of token so it can be
+      // used throughout the promise chain
       token = returnedToken;
       return token;
     })
     .then(function() {
-      return helpers.searchForShow(searchQuery, token);
+      return helpers.searchForShow(query, token);
     })
     .then(function(id) {
       showId = id;
@@ -21,6 +27,9 @@ function addNewShow(req, res, next) {
       return helpers.checkForShowInDb(showId);
     })
     .then(function(found) {
+      // if show is already in DB,
+      // break out of promise chain and send
+      // back show info as response
       if (found) {
         res.status(200).send(found);
         throw new Error('this show is already in the database');
@@ -42,33 +51,39 @@ function addNewShow(req, res, next) {
 }
 
 function getShows(req, res, next) {
-  var query = Show.find();
-
-  query.exec(function(err, shows) {
-    if (err) return next(err);
-    res.status(200).send(shows);
-  });
+  return findShows()
+    .then(function(shows) {
+      res.status(200).send(shows);
+    })
+    .catch(function(err) {
+      if (err) return next(err);
+    });
 }
 
 function removeShow(req, res, next) {
-  console.log(req.params);
-  var query = Show.find({ _id: req.params.id });
-
-  query.remove()
-    .exec(function(err, show) {
-      if (err) return next(err);
+  return findShow({ _id: req.params.id })
+    .then(function(show) {
+      return show.remove();
+    })
+    .then(function(show) {
       res.status(200).send(show);
+    })
+    .catch(function(err) {
+      if (err) return next(err);
     });
 }
 
 function updateShow(req, res, next) {
-  var query = Show.find({ _id: req.params.id });
-
   if (req.body.rating) {
-    query.update({ rating: req.body.rating })
-      .exec(function(err, show) {
-        if (err) return next(err);
-        res.status(200).send(show);
+    findShow({ _id: req.params.id })
+      .then(function(show) {
+        return show.update({ rating: req.body.rating });
+      })
+      .then(function() {
+        res.status(200).send('rating updated');
+      })
+      .catch(function(err) {
+        return next(err);
       });
   }
 }

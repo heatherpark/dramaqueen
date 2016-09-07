@@ -1,14 +1,11 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-export default React.createClass({
-  mixins: [PureRenderMixin],
+const Header = () => {
+  return (
+    <div className="add-show-container">
+      <h1>drama queen!</h1>
+    </div>
+  )
+}
 
-  render() {
-    return (
-      <div className="add-show-container">
-        <h1>drama queen!</h1>
-      </div>
-    )
-  }
-});
+export default Header;

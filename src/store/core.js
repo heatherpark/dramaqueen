@@ -10,18 +10,6 @@ export function addDrama(state, drama) {
   );
 }
 
-export function changeRating(state, rating, dramaId) {
-  let dramaIndex = state
-    .get('watchedDramas')
-    .findIndex(drama => drama.get('_id') === dramaId);
-
-  let watchedDramas = state
-    .updateIn(['watchedDramas', dramaIndex],
-      drama => drama.set('rating', rating))
-
-  return state.set('watchedDramas', watchedDramas);
-}
-
 export function removeDrama(state, dramaId) {
   let watchedDramas = state
     .get('watchedDramas')

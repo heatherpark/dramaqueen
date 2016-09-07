@@ -1,4 +1,4 @@
-import { setWatchedDramas, addDrama, changeRating, removeDrama, INITIAL_STATE } from './core';
+import { addDrama, removeDrama, setWatchedDramas, INITIAL_STATE } from './core';
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -8,8 +8,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       return addDrama(state, action.drama);
     case 'REMOVE_DRAMA':
       return removeDrama(state, action.id);
-    case 'CHANGE_RATING':
-      return changeRating(state, action.rating, action.id);
   }
   return state;
 }

@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import App from './components/App';
 
-export const store = configureStore();
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
@@ -13,3 +13,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 );
+
+export default store

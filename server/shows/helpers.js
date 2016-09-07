@@ -1,11 +1,12 @@
 var rp = require('request-promise');
-var tvdbKey = require('../config/client.js').TVDB.API_KEY;
-var Show = require('./showModel.js');
 var Q = require('q');
 
+var Show = require('./showModel.js');
 var findShow = Q.nbind(Show.findOne, Show);
 var saveShow = Q.nbind(Show.create, Show);
 var updateShow = Q.nbind(Show.findOneAndUpdate, Show);
+
+var tvdbKey = require('../config/client.js').TVDB.API_KEY;
 var tvdbUri = 'https://api.thetvdb.com';
 var token;
 
@@ -29,6 +30,8 @@ function addShowToDb(show) {
 
   var bannerUrl = 'http://thetvdb.com/banners/' + show.banner;
 
+  // save image to cloudinary and set resulting
+  // cdn url to banner field value in Show instance
   return cloudinary.uploader
     .upload(bannerUrl)
     .then(function(res) {
@@ -39,13 +42,10 @@ function addShowToDb(show) {
     });
 }
 
-function checkForShowInDb(showId) {
-  return findShow({ _id: showId })
+function checkForShowInDb(id) {
+  return findShow({ _id: id })
     .then(function(show) {
-      if (show) {
-        show.currentShow = true;
-        return show;
-      };
+      if (show) return show;
       return null;
     })
     .catch(function(err) {
@@ -53,6 +53,7 @@ function checkForShowInDb(showId) {
     });
 }
 
+// retrieves TVDB API authentication token
 function getToken() {
   var options = {
     method: 'POST',
@@ -70,9 +71,9 @@ function getToken() {
     });
 }
 
-function getShowInfo(showId, token) {
+function getShowInfo(id, token) {
   var options = {
-    uri: tvdbUri + '/series/' + showId,
+    uri: tvdbUri + '/series/' + id,
     headers: {
       'Authorization': 'Bearer ' + token
     },
@@ -81,16 +82,16 @@ function getShowInfo(showId, token) {
 
   return rp(options)
     .then(function(res) {
-      var showInfo = res.data;
-      return showInfo;
+      var show = res.data;
+      return show;
     });
 }
 
-function searchForShow(showName, token) {
+function searchForShow(name, token) {
   var options = {
     uri: tvdbUri + '/search/series',
     qs: {
-      name: showName
+      name: name
     },
     headers: {
       'Authorization': 'Bearer ' + token

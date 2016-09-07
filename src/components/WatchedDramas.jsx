@@ -1,44 +1,40 @@
 import { connect } from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import CurrentShow from './CurrentShow';
-import { fetchShows } from '../actionCreators';
-import { store } from '../index';
+import { fetchShows } from '../store/actions';
+import WatchedDrama from './WatchedDrama';
 
 /** dumb component **/
-export const CurrentShows = React.createClass({
-  mixins: [PureRenderMixin],
-
+export class WatchedDramas extends React.Component {
   componentWillMount() {
-    store.dispatch(fetchShows());
-    console.log('state changed: ', this.props.watchedDramas);
-  },
+    this.props.dispatch(fetchShows());
+  }
 
   getWatchedDramas() {
     return this.props.watchedDramas || [];
-  },
+  }
 
   render() {
     return (
       <div className="current-shows-container">
         {this.getWatchedDramas().map((drama, index) =>
-          <CurrentShow
+          <WatchedDrama
             drama={drama}
             key={index} />
         )}
       </div>
     )
   }
-});
 
-function mapStateToProps(state) {
+}
+
+const mapStateToProps = (state) => {
   return {
     watchedDramas: state.get('watchedDramas')
-  };
+  }
 }
 
 /** smart component **/
 // wraps dumb component with logic to keep it in sync with the store
 // maps necessary props from state to CurrentShows component
-export const CurrentShowsContainer = connect(mapStateToProps)(CurrentShows);
+export const WatchedDramasContainer = connect(mapStateToProps)(WatchedDramas);
