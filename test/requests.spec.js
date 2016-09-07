@@ -5,7 +5,7 @@ var app = require('../server/server.js').app;
 
 var Show = require('../server/shows/showModel.js');
 var helpers = require('../server/shows/helpers.js');
-var key = require('../server/config/client.js').TVDB.API_KEY;
+var key = process.env.TVDB_API_KEY || require('../server/config/client.js').TVDB.API_KEY;
 
 describe('Show-related server requests that require the database', function() {
   var shows = [
@@ -14,13 +14,13 @@ describe('Show-related server requests that require the database', function() {
   ];
 
   // add to and delete mock data from DB
-  before(function(done) {
+  beforeEach(function(done) {
     shows.forEach(function(show) { Show.create(show) });
     done();
   });
 
-  after(function(done) {
-    shows.forEach(function(show) { Show.remove(show).exec() });
+  afterEach(function(done) {
+    shows.forEach(function(show) { Show.remove({ _id: show._id }).exec() });
     done();
   });
 

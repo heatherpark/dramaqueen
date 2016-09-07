@@ -6,16 +6,24 @@ var findShow = Q.nbind(Show.findOne, Show);
 var saveShow = Q.nbind(Show.create, Show);
 var updateShow = Q.nbind(Show.findOneAndUpdate, Show);
 
-var tvdbKey = require('../config/client.js').TVDB.API_KEY;
 var tvdbUri = 'https://api.thetvdb.com';
 var token;
 
+// configuration for API keys and deployment
+var ENV = require('./client.js');
+var client;
+
+if (process.env.PORT) {
+  client = ENV;
+} else {
+  client = require('../config/client.js');
+}
+
 var cloudinary = require('cloudinary');
-var cloudinaryClient = require('../config/client.js').cloudinary;
 cloudinary.config({
-  cloud_name: cloudinaryClient.CLOUD_NAME,
-  api_key: cloudinaryClient.API_KEY,
-  api_secret: cloudinaryClient.API_SECRET
+  cloud_name: client.CLOUDINARY.CLOUD_NAME,
+  api_key: client.CLOUDINARY.API_KEY,
+  api_secret: client.CLOUDINARY.API_SECRET
 });
 
 function addShowToDb(show) {
@@ -58,7 +66,7 @@ function getToken() {
   var options = {
     method: 'POST',
     uri: tvdbUri + '/login',
-    body: { apikey: tvdbKey },
+    body: { apikey: client.TVDB.API_KEY },
     json: true
   };
 
