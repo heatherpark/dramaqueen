@@ -9,7 +9,7 @@ require('./config/middleware.js')(app, express);
 require('./config/routes.js')(app, express);
 
 /** mongodb connection **/
-var mongoUri = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1/showtimedb';
+var mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1/showtimedb';
 mongoose.connect(mongoUri);
 
 var db = mongoose.connection;
