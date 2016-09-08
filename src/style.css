@@ -54,12 +54,25 @@ h2 {
 }
 
 /* ------------------------------------------------- */
-/* TITLE BAR / ADD SHOW FORM */
+/* HEADER */
 /* ------------------------------------------------- */
 
-.add-show-content h1 {
-  margin-bottom: 10px;
+header {
+  width: 90%;
+  margin: 0 auto 20px auto;
 }
+
+header .description {
+  margin: 0 0 7px 0;
+}
+
+header a {
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------- */
+/* ADD SHOW FORM */
+/* ------------------------------------------------- */
 
 .add-show-container input[type="text"] {
   height: 25px;
