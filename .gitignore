@@ -4,3 +4,5 @@ npm-debug.log
 
 # API keys
 server/config/client.js
+
+dist/
